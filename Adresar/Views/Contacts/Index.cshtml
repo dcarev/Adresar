@@ -1,0 +1,87 @@
+﻿@using Adresar.Properties
+@model Adresar.Models.ContactsSearchViewModel
+@{
+    ViewBag.Title = Resources.Contacts;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Page header start -->
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+</div>
+<!-- Page header end -->
+<!-- Filter panel start -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default filter-chk">
+            <div class="panel-heading" data-target="#panel1">
+                <h3 class="panel-title">
+                    @Resources.Filter
+                </h3>
+            </div>
+            <div class="panel-body" id="panel1">
+                <form id="frmContactSearch" autocomplete="on">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="search">@Resources.Search</label>
+                                @Html.EditorFor(m => m.search, new { htmlAttributes = new { @class = "form-control", @placeholder = Resources.SearchPlaceholder } })
+                            </div>
+                        </div>
+                    </div>
+                    <!--Button start here-->
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="btn btn-default" id="btnReset">@Resources.Reset</button>
+                            <button type="button" class="btn btn-primary" id="btnSearch">@Resources.Search</button>
+                        </div>
+                    </div>
+                    <!--Button start here-->
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Filter panel end -->
+<!-- List panel start -->
+<div class="row" id="divContactList">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" data-target="#panel2">
+                <h3 class="panel-title">
+                    @Resources.ContactList
+                </h3>
+            </div>
+            <div class="panel-body" id="panel2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="tblContacts" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>@Resources.Name</th>
+                                    <th>@Resources.Surname</th>
+                                    <th>@Resources.Phone</th>
+                                    <th>@Resources.Email</th>
+                                    <th>@Resources.Created</th>
+                                    <th>@Resources.Updated</th>
+                                    <th>@Resources.Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Lis panel end -->
+@section scripts {
+    <script>
+        var url = '@Url.Action("Index", "Contacts")';
+        var langUrl = '@Url.Content("~/Scripts/Adresar/hr.json")';
+    </script>
+
+    @Scripts.Render("~/bundles/ContactsListJs")
+}

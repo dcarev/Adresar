@@ -1,38 +1,19 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="hr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@Adresar.Properties.Resources.ApplicationName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Adresar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            @Html.ActionLink("My Web Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink(Adresar.Properties.Resources.ApplicationName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
 
                 <ul class="nav navbar-nav mr-auto">
@@ -44,11 +25,15 @@
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        <main>
+            <div id="layoutDiv" class="container-fluid">
+                @RenderBody()
+            </div>
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - @Adresar.Properties.Resources.ApplicationName by Dario Carev</p>
+            </footer>
+        </main>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

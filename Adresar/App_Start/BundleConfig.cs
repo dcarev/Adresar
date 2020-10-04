@@ -21,11 +21,22 @@ namespace Adresar
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/DataTables/jquery.datatables.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/DataTables/css/jquery.dataTables.css",
                       "~/Content/site.css"));
+
+            #region Contacts
+
+            bundles.Add(new ScriptBundle("~/bundles/ContactsListJs").Include(
+                      "~/Scripts/Adresar/ContactsList.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ContactsEditJs").Include(
+                              "~/Scripts/Adresar/ContactsEdit.js"));
+            #endregion
         }
     }
 }
