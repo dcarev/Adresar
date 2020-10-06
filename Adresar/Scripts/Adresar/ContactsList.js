@@ -1,6 +1,6 @@
 ﻿var pageLength = 10;
 var contactTable;
-var tableOrder = [[0, "desc"]];
+var tableOrder = [[0, "asc"]];
 
 $(document).ready(function () {
 
@@ -14,8 +14,20 @@ $(document).ready(function () {
     $("#btnSearch").on("click", function () {
         RecreateDatatable();
     });
+
+    $("#frmContactSearch").on("submit", function () {
+        RecreateDatatable();
+        return false;
+    });
 });
 
+function EditContact(id) {
+    
+}
+
+function DeleteContact(id) {
+    
+}
     
 function RecreateDatatable() {
 
@@ -48,15 +60,34 @@ function RecreateDatatable() {
             "type": "POST"
         },
         "language": {
-            "url": langUrl
+            "url": '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json'
         },
+        "columnDefs": [
+            { "responsivePriority": 1, "targets": [0,1] },
+            { "responsivePriority": 2, "targets": [-1] },
+            { "className": "dt-body-center", "targets": [-1] },
+            { "width": "50px", "targets": [-1] }
+        ],
         "columns": [
-            { "data": "Name" },
-            { "data": "Surname" },
-            { "data": "Phone" },
+            { "data": "Ime" },
+            { "data": "Prezime" },
+            { "data": "Telefon" },
             { "data": "Email" },
-            { "data": "Created" },
-            { "data": "Updated" }
+            { "data": "VrijemeKreiranja" },
+            { "data": "ZadnjaIzmjena" },
+            {
+                "data": "ID",
+                "render": function (data, type, row) {
+                    var dataRender;
+                    if (data !== "dummy") {
+                        dataRender =
+                            "<a href='JavaScript:EditContact(" + row.ID + ");'><i class='far fa-edit fa-lg fa-space'></i></a>" +
+                            "<a href='JavaScript:DeleteContact(" + row.ID + ");'><i class='far fa-trash-alt fa-lg fa-space'></i></a>";
+                    }
+                    return dataRender;
+                },
+                "orderable": false
+            }
         ]
     });
 }

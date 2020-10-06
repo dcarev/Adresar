@@ -16,3 +16,12 @@
     white-space: normal;
 }
 
+.btn {
+    padding: 7px 17px;
+    border-radius: 7px;
+    min-width: 80px;
+}
+
+.fa-space {
+    margin: 0 4px;
+}

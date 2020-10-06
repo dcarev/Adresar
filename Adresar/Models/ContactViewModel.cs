@@ -8,11 +8,12 @@ namespace Adresar.Models
     public class ContactViewModel
     {
         public Int64 ID { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Phone { get; set; }
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
+        public string Telefon { get; set; }
         public string Email { get; set; }
-        public string Created { get; set; }
-        public string Updated { get; set; }
+        public string VrijemeKreiranja { get; set; }
+        public string ZadnjaIzmjena { get; set; }
+        public string Akcije { get; set; }
     }
 }

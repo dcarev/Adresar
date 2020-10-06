@@ -11,17 +11,20 @@ namespace Adresar.Controllers
 {
     public class ContactsController : Controller
     {
-        // GET: Contacts
+        /// <summary>
+        /// Get contacts
+        /// </summary>
+        /// <returns>Contact list page</returns>
         public ActionResult Index()
         {
             return View();
         }
 
         /// <summary>
-        /// 
+        /// Returns filtered list of contacts
         /// </summary>
         /// <param name="contactsSearchViewModel"></param>
-        /// <returns></returns>
+        /// <returns>Filtered list of contacts</returns>
         [HttpPost]
         public JsonResult Index(Models.ContactsSearchViewModel contactsSearchViewModel)
         {
@@ -33,10 +36,10 @@ namespace Adresar.Controllers
             // Paging
             if (contactsSearchViewModel.length != 0)
             {
-                contactsSearchViewModel.page = Convert.ToString((contactsSearchViewModel.start / contactsSearchViewModel.length) + 1);
+                contactsSearchViewModel.page = (contactsSearchViewModel.start / contactsSearchViewModel.length) + 1;
             }
             else
-                contactsSearchViewModel.page = "1";
+                contactsSearchViewModel.page = 1;
 
             contactsSearchViewModel.pageSize = contactsSearchViewModel.length;
 
@@ -54,22 +57,33 @@ namespace Adresar.Controllers
                     using (SqlCommand cmd = new SqlCommand("[dbo].[SP_ListaKontakata]", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@Filter", ""));
+                        cmd.Parameters.Add(new SqlParameter("@Filter", contactsSearchViewModel.search));
+                        cmd.Parameters.Add(new SqlParameter("@SortColumn", contactsSearchViewModel.sortColumn));
+                        cmd.Parameters.Add(new SqlParameter("@SortOrder", contactsSearchViewModel.sortOrder));
+                        cmd.Parameters.Add(new SqlParameter("@Page", contactsSearchViewModel.page));
+                        cmd.Parameters.Add(new SqlParameter("@PageSize", contactsSearchViewModel.pageSize));
                         cmd.CommandTimeout = 140;
 
                         using (SqlDataReader rdr = cmd.ExecuteReader())
                         {
+                            Int64 id = 0;
+
                             while (rdr.Read())
                             {
+                                id = (Int64)rdr["ID"];
+
                                 contact = new Models.ContactViewModel()
                                 {
-                                    ID = (Int64)rdr["ID"],
-                                    Name = (String)rdr["Ime"],
-                                    Surname = (String)rdr["Prezime"],
-                                    Phone = (String)rdr["Telefon"],
+                                    ID = id,
+                                    Ime = (String)rdr["Ime"],
+                                    Prezime = (String)rdr["Prezime"],
+                                    Telefon = (String)rdr["Telefon"],
                                     Email = (String)rdr["Email"],
-                                    Created = ((DateTimeOffset)rdr["VrijemeKreiranja"]).ToString("G"),
-                                    Updated = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G")
+                                    VrijemeKreiranja = ((DateTimeOffset)rdr["VrijemeKreiranja"]).ToString("G"),
+                                    ZadnjaIzmjena = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G"),
+                                    Akcije = id.ToString()
+                                    /* "<a href='#' id='" + id + "' onclick='EditContact(this.id);'><i class='far fa-edit'></i></a>" +
+                                             "<a href='#' id='" + id + "' onclick='SalesQuotePDF(this.id);'><i class='far fa-trash-alt'></i></a>" */
                                 };
 
                                 totalRecords = (int)rdr["TotalRecords"];
@@ -83,7 +97,7 @@ namespace Adresar.Controllers
                     result.recordsFiltered = totalRecords;
                     result.data = cl;
 
-                    return Json(result, JsonRequestBehavior.AllowGet);
+                    return Json(result);
                 }
                 catch (Exception ex)
                 {
@@ -96,7 +110,7 @@ namespace Adresar.Controllers
                 }
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result);
         }
 
         // GET: Contacts/Details/5

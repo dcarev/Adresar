@@ -61,7 +61,16 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktivnosti.
+        ///   Looks up a localized string similar to O Aplikaciji.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Akcije.
         /// </summary>
         public static string Action {
             get {
@@ -129,6 +138,15 @@ namespace Adresar.Properties {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novi.
+        /// </summary>
+        public static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
             }
         }
         
