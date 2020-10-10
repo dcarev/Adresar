@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,6 +15,5 @@ namespace Adresar.Models
         public string Email { get; set; }
         public string VrijemeKreiranja { get; set; }
         public string ZadnjaIzmjena { get; set; }
-        public string Akcije { get; set; }
     }
 }

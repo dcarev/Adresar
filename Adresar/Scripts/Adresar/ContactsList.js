@@ -1,10 +1,14 @@
 ﻿var pageLength = 10;
 var contactTable;
-var tableOrder = [[0, "asc"]];
+var tableOrder = [[1, "asc"]];
 
 $(document).ready(function () {
 
     RecreateDatatable();
+
+    $("#btnNew").on("click", function () {
+        window.location.href = "/Contacts/Create";
+    });
 
     $('#btnReset').on("click", function () {
         $("#search").val("");
@@ -19,6 +23,10 @@ $(document).ready(function () {
         RecreateDatatable();
         return false;
     });
+
+    $('#btnAddReason').on("click", function () {
+        SaveQuoteReason();
+    });
 });
 
 function EditContact(id) {
@@ -26,7 +34,7 @@ function EditContact(id) {
 }
 
 function DeleteContact(id) {
-    
+    $('#deleteModal').modal('show');
 }
     
 function RecreateDatatable() {
@@ -66,9 +74,15 @@ function RecreateDatatable() {
             { "responsivePriority": 1, "targets": [0,1] },
             { "responsivePriority": 2, "targets": [-1] },
             { "className": "dt-body-center", "targets": [-1] },
-            { "width": "50px", "targets": [-1] }
+            { "width": "60px", "targets": [-1] }
         ],
         "columns": [
+            {
+                "className": 'details-control',
+                "orderable": false,
+                "data": null,
+                "defaultContent": ''
+            },
             { "data": "Ime" },
             { "data": "Prezime" },
             { "data": "Telefon" },
@@ -81,8 +95,8 @@ function RecreateDatatable() {
                     var dataRender;
                     if (data !== "dummy") {
                         dataRender =
-                            "<a href='JavaScript:EditContact(" + row.ID + ");'><i class='far fa-edit fa-lg fa-space'></i></a>" +
-                            "<a href='JavaScript:DeleteContact(" + row.ID + ");'><i class='far fa-trash-alt fa-lg fa-space'></i></a>";
+                            "<a href='JavaScript:EditContact(" + row.ID + ");' title='Uredi'><i class='far fa-edit fa-lg fa-space'></i></a>" +
+                            "<a href='JavaScript:DeleteContact(" + row.ID + ");' title='Briši'><i class='far fa-trash-alt fa-lg fa-space'></i></a>";
                     }
                     return dataRender;
                 },

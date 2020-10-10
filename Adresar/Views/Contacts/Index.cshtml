@@ -6,79 +6,81 @@
 }
 <!-- Page header start -->
 <div class="row">
-    <div class="col-12">
+    <div class="col-md-12">
         <h1 class="page-header">@ViewBag.Title</h1>
     </div>
 </div>
 <!-- Page header end -->
 <!-- Filter panel start -->
 <div class="row">
-    <div class="col-12">
-        <div class="panel panel-default filter-chk">
-            <div class="panel-heading" data-target="#panel1">
-                <h3 class="panel-title">
-                    @Resources.Filter
-                </h3>
+    <form id="frmContactSearch" class="form-inline" autocomplete="on">
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-12">
+            <button type="button" class="btn btn-success" id="btnNew">@Resources.New</button>
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-12 text-right">
+            <i class="fas fa-search fa-space" aria-hidden="true"></i>
+            @Html.EditorFor(m => m.search, new { htmlAttributes = new { @class = "form-control form-control-sm ml-3 w-75", @placeholder = Resources.SearchPlaceholder } })
+            <button type="button" class="btn btn-primary" id="btnSearch">@Resources.Search</button>
+            <button type="button" class="btn btn-secondary" id="btnReset">@Resources.Reset</button>
+        </div>
+    </form>
+</div>
+<!-- Filter panel end -->
+<!-- List panel start -->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h3>@Resources.ContactList</h3>
+    </div>
+</div>
+<div class="row" id="divContactList">
+    <div class="col-md-12">
+        <table id="tblContacts" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>@Resources.FirstName</th>
+                    <th>@Resources.LastName</th>
+                    <th>@Resources.Phone</th>
+                    <th>@Resources.Email</th>
+                    <th>@Resources.Created</th>
+                    <th>@Resources.Updated</th>
+                    <th>@Resources.Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- List panel end -->
+<!-- Lost  Modal Popup start here-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Header</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="panel-body" id="panel1">
-                <form id="frmContactSearch" autocomplete="on">
+            <div class="modal-body">
+                <form>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                <label for="search">@Resources.Search</label>
-                                @Html.EditorFor(m => m.search, new { htmlAttributes = new { @class = "form-control", @placeholder = Resources.SearchPlaceholder } })
+                                <label class="kpi-label">Name : </label>
+                                <span class="kpi-span" id="txtlostSalesQuotationName"></span>
                             </div>
                         </div>
                     </div>
-                    <!--Button start here-->
-                    <div class="row">
-                        <div class="col-4 text-left">
-                            <button type="button" class="btn btn-success" id="btnNew">@Resources.New</button>
-                        </div>
-                        <div class="col-8 text-right">
-                            <button type="button" class="btn btn-secondary" id="btnReset">@Resources.Reset</button>
-                            <button type="button" class="btn btn-primary" id="btnSearch">@Resources.Search</button>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button id="btnDeleteContact" type="button" class="btn btn-primary">Save</button>
                     </div>
-                    <!--Button start here-->
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!-- Filter panel end -->
-<!-- List panel start -->
-<div class="row" id="divContactList">
-    <div class="col-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" data-target="#panel2">
-                <h3 class="panel-title">
-                    @Resources.ContactList
-                </h3>
-            </div>
-            <div class="panel-body" id="panel2">
-                <div class="row">
-                    <div class="col-12">
-                        <table id="tblContacts" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>@Resources.Name</th>
-                                    <th>@Resources.Surname</th>
-                                    <th>@Resources.Phone</th>
-                                    <th>@Resources.Email</th>
-                                    <th>@Resources.Created</th>
-                                    <th>@Resources.Updated</th>
-                                    <th>@Resources.Action</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Lis panel end -->
+<!-- Lost Modal Popup end here-->
 @section scripts {
     <script>
         var url = '@Url.Action("Index", "Contacts")';

@@ -88,6 +88,24 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Povratak na listu kontakata.
+        /// </summary>
+        public static string BackToContactList {
+            get {
+                return ResourceManager.GetString("BackToContactList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontakt.
+        /// </summary>
+        public static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lista kontakata.
         /// </summary>
         public static string ContactList {
@@ -102,6 +120,15 @@ namespace Adresar.Properties {
         public static string Contacts {
             get {
                 return ResourceManager.GetString("Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novi kontakt.
+        /// </summary>
+        public static string CreateContact {
+            get {
+                return ResourceManager.GetString("CreateContact", resourceCulture);
             }
         }
         
@@ -124,20 +151,20 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pretraživanje.
+        ///   Looks up a localized string similar to Ime.
         /// </summary>
-        public static string Filter {
+        public static string FirstName {
             get {
-                return ResourceManager.GetString("Filter", resourceCulture);
+                return ResourceManager.GetString("FirstName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ime.
+        ///   Looks up a localized string similar to Prezime.
         /// </summary>
-        public static string Name {
+        public static string LastName {
             get {
-                return ResourceManager.GetString("Name", resourceCulture);
+                return ResourceManager.GetString("LastName", resourceCulture);
             }
         }
         
@@ -178,6 +205,15 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pretraživanje kontakata.
+        /// </summary>
+        public static string SearchContacts {
+            get {
+                return ResourceManager.GetString("SearchContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unesite tekst pretraživanja.
         /// </summary>
         public static string SearchPlaceholder {
@@ -187,11 +223,11 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prezime.
+        ///   Looks up a localized string similar to Izradi.
         /// </summary>
-        public static string Surname {
+        public static string Submit {
             get {
-                return ResourceManager.GetString("Surname", resourceCulture);
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
         
@@ -201,6 +237,51 @@ namespace Adresar.Properties {
         public static string Updated {
             get {
                 return ResourceManager.GetString("Updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email adresa nije u ispravnom formatu..
+        /// </summary>
+        public static string ValidationEmailFormat {
+            get {
+                return ResourceManager.GetString("ValidationEmailFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} na može biti duže od {1} znakova..
+        /// </summary>
+        public static string ValidationFieldLength {
+            get {
+                return ResourceManager.GetString("ValidationFieldLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} je obavezno polje..
+        /// </summary>
+        public static string ValidationFieldRequired {
+            get {
+                return ResourceManager.GetString("ValidationFieldRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} je obavezno polje i mora imati barem {1} znaka..
+        /// </summary>
+        public static string ValidationFieldRequiredMinLength {
+            get {
+                return ResourceManager.GetString("ValidationFieldRequiredMinLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefonski broj nije u ispravnom formatu..
+        /// </summary>
+        public static string ValidationTelephoneFormat {
+            get {
+                return ResourceManager.GetString("ValidationTelephoneFormat", resourceCulture);
             }
         }
     }

@@ -1,17 +1,18 @@
 ﻿body {
-    padding-top: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+    background-color: #ffffff;
+    padding-top: 30px;
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
     white-space: normal;
 }
@@ -24,4 +25,23 @@
 
 .fa-space {
     margin: 0 4px;
+}
+
+.form-horizontal .control-label,
+.form-horizontal .radio,
+.form-horizontal .checkbox,
+.form-horizontal .radio-inline,
+.form-horizontal .checkbox-inline {
+    padding-top: 7px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.form-horizontal .control-label {
+    text-align: right;
+    float: left;
+}
+
+.form-group {
+    margin-bottom: 15px;
 }

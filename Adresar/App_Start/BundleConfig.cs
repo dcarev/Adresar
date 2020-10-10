@@ -23,11 +23,13 @@ namespace Adresar
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/DataTables/jquery.datatables.js",
+                      "~/Scripts/DataTables/dataTables.bootstrap.js",
                       "~/Scripts/DataTables/dataTables.responsive.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/DataTables/css/jquery.dataTables.css",
+                      //"~/Content/DataTables/css/jquery.dataTables.css",
+                      "~/Content/DataTables/css/dataTables.bootstrap.css",
                       "~/Content/fontawesome-all.css",
                       "~/Content/site.css"));
 

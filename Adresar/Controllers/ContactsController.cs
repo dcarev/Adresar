@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Adresar.Properties;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -80,10 +81,7 @@ namespace Adresar.Controllers
                                     Telefon = (String)rdr["Telefon"],
                                     Email = (String)rdr["Email"],
                                     VrijemeKreiranja = ((DateTimeOffset)rdr["VrijemeKreiranja"]).ToString("G"),
-                                    ZadnjaIzmjena = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G"),
-                                    Akcije = id.ToString()
-                                    /* "<a href='#' id='" + id + "' onclick='EditContact(this.id);'><i class='far fa-edit'></i></a>" +
-                                             "<a href='#' id='" + id + "' onclick='SalesQuotePDF(this.id);'><i class='far fa-trash-alt'></i></a>" */
+                                    ZadnjaIzmjena = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G")
                                 };
 
                                 totalRecords = (int)rdr["TotalRecords"];
@@ -113,12 +111,6 @@ namespace Adresar.Controllers
             return Json(result);
         }
 
-        // GET: Contacts/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Contacts/Create
         public ActionResult Create()
         {
@@ -127,18 +119,68 @@ namespace Adresar.Controllers
 
         // POST: Contacts/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create([Bind(Include = "Ime, Prezime, Telefon, Email")] Models.ContactViewModel contact)
         {
             try
             {
-                // TODO: Add insert logic here
+                if ((contact.Ime == null) || (contact.Ime.Length < 2))
+                    ModelState.AddModelError("Ime", String.Format(Resources.ValidationFieldRequiredMinLength, "Ime", 2));
+                if ((contact.Ime != null) && (contact.Ime.Length > 50))
+                    ModelState.AddModelError("Ime", String.Format(Resources.ValidationFieldLength, "Ime", 50));
+                if ((contact.Prezime == null) || (contact.Prezime.Length < 2))
+                    ModelState.AddModelError("Prezime", String.Format(Resources.ValidationFieldRequiredMinLength, "Prezime", 2));
+                if ((contact.Prezime != null) && (contact.Prezime.Length > 50))
+                    ModelState.AddModelError("Prezime", String.Format(Resources.ValidationFieldLength, "Prezime", 50));
+                if ((contact.Telefon == null) || (contact.Telefon.Length < 1))
+                    ModelState.AddModelError("Telefon", String.Format(Resources.ValidationFieldRequired, "Telefon"));
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AdresarConnectionString"].ToString()))
+                    {
+                        conn.Open();
+
+                        using (SqlCommand cmd = new SqlCommand("[dbo].[SP_NoviKontakt]", conn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add(new SqlParameter("@Ime", contact.Ime));
+                            cmd.Parameters.Add(new SqlParameter("@Prezime", contact.Prezime));
+                            cmd.Parameters.Add(new SqlParameter("@Telefon", contact.Telefon));
+                            cmd.Parameters.Add(new SqlParameter("@Email", contact.Email));
+                            cmd.CommandTimeout = 140;
+
+                            using (SqlDataReader rdr = cmd.ExecuteReader())
+                            {
+                                Int64 id = 0;
+
+                                while (rdr.Read())
+                                {
+                                    id = (Int64)rdr["ID"];
+
+                                    contact = new Models.ContactViewModel()
+                                    {
+                                        ID = id,
+                                        Ime = (String)rdr["Ime"],
+                                        Prezime = (String)rdr["Prezime"],
+                                        Telefon = (String)rdr["Telefon"],
+                                        Email = (String)rdr["Email"],
+                                        VrijemeKreiranja = ((DateTimeOffset)rdr["VrijemeKreiranja"]).ToString("G"),
+                                        ZadnjaIzmjena = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G")
+                                    };
+                                }
+                            }
+                        }
+                    }
+
+                    return View("Edit", contact);
+                }
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
+
+            return View(contact);
         }
 
         // GET: Contacts/Edit/5

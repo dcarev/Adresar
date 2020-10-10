@@ -126,11 +126,20 @@
   <data name="ApplicationName" xml:space="preserve">
     <value>Adresar</value>
   </data>
+  <data name="BackToContactList" xml:space="preserve">
+    <value>Povratak na listu kontakata</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
   <data name="ContactList" xml:space="preserve">
     <value>Lista kontakata</value>
   </data>
   <data name="Contacts" xml:space="preserve">
     <value>Kontakti</value>
+  </data>
+  <data name="CreateContact" xml:space="preserve">
+    <value>Novi kontakt</value>
   </data>
   <data name="Created" xml:space="preserve">
     <value>Vrijeme izrade</value>
@@ -138,11 +147,11 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Filter" xml:space="preserve">
-    <value>Pretraživanje</value>
-  </data>
-  <data name="Name" xml:space="preserve">
+  <data name="FirstName" xml:space="preserve">
     <value>Ime</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Prezime</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>Novi</value>
@@ -156,13 +165,31 @@
   <data name="Search" xml:space="preserve">
     <value>Traži</value>
   </data>
+  <data name="SearchContacts" xml:space="preserve">
+    <value>Pretraživanje kontakata</value>
+  </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Unesite tekst pretraživanja</value>
   </data>
-  <data name="Surname" xml:space="preserve">
-    <value>Prezime</value>
+  <data name="Submit" xml:space="preserve">
+    <value>Izradi</value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Zadnja izmjena</value>
+  </data>
+  <data name="ValidationEmailFormat" xml:space="preserve">
+    <value>Email adresa nije u ispravnom formatu.</value>
+  </data>
+  <data name="ValidationFieldLength" xml:space="preserve">
+    <value>{0} na može biti duže od {1} znakova.</value>
+  </data>
+  <data name="ValidationFieldRequired" xml:space="preserve">
+    <value>{0} je obavezno polje.</value>
+  </data>
+  <data name="ValidationFieldRequiredMinLength" xml:space="preserve">
+    <value>{0} je obavezno polje i mora imati barem {1} znaka.</value>
+  </data>
+  <data name="ValidationTelephoneFormat" xml:space="preserve">
+    <value>Telefonski broj nije u ispravnom formatu.</value>
   </data>
 </root>
