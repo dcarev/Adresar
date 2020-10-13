@@ -1,13 +1,17 @@
 ﻿var pageLength = 10;
 var contactTable;
-var tableOrder = [[1, "asc"]];
+var tableOrder = [[0, "asc"]];
+var deleteId = 0;
+var deleteName = "";
+
+toastr.options.positionClass = "toast-bottom-right";
 
 $(document).ready(function () {
 
-    RecreateDatatable();
+    RecreateDatatable(); 
 
     $("#btnNew").on("click", function () {
-        window.location.href = "/Contacts/Create";
+        window.location.href = createUrl;
     });
 
     $('#btnReset').on("click", function () {
@@ -24,16 +28,44 @@ $(document).ready(function () {
         return false;
     });
 
-    $('#btnAddReason').on("click", function () {
-        SaveQuoteReason();
+    $('#btnYes').on("click", function () {
+        $('#deleteModal').modal('hide');
+
+        $.ajax({
+            url: deleteUrl,
+            type: "POST",
+            beforeSend: function () {
+                $("#pageloader").css("display", "block");
+            },
+            data: {
+                "id": deleteId,
+            },
+            success: function (resultData) {
+                if (resultData && resultData.success) {
+                    toastr["success"](successMsg.replace('{0}', deleteName));
+                    contactTable.ajax.reload(null, false);
+                }
+                else {
+                    toastr["error"](resultData.error);
+                }
+            },
+            error: function (data) {
+                toastr["error"](errorMsg);
+            }
+        });
     });
+
+    $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
 });
 
 function EditContact(id) {
-    
+    window.location.href = editUrl + "/" + id;
 }
 
-function DeleteContact(id) {
+function DeleteContact(id, name) {
+    deleteId = id;
+    deleteName = name;
+    $('#modalMsg').text(confirmationMsg.replace('{0}', name));
     $('#deleteModal').modal('show');
 }
     
@@ -68,7 +100,7 @@ function RecreateDatatable() {
             "type": "POST"
         },
         "language": {
-            "url": '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json'
+            "url": langUrl
         },
         "columnDefs": [
             { "responsivePriority": 1, "targets": [0,1] },
@@ -77,12 +109,6 @@ function RecreateDatatable() {
             { "width": "60px", "targets": [-1] }
         ],
         "columns": [
-            {
-                "className": 'details-control',
-                "orderable": false,
-                "data": null,
-                "defaultContent": ''
-            },
             { "data": "Ime" },
             { "data": "Prezime" },
             { "data": "Telefon" },
@@ -95,8 +121,8 @@ function RecreateDatatable() {
                     var dataRender;
                     if (data !== "dummy") {
                         dataRender =
-                            "<a href='JavaScript:EditContact(" + row.ID + ");' title='Uredi'><i class='far fa-edit fa-lg fa-space'></i></a>" +
-                            "<a href='JavaScript:DeleteContact(" + row.ID + ");' title='Briši'><i class='far fa-trash-alt fa-lg fa-space'></i></a>";
+                            "<a href='JavaScript:EditContact(" + row.ID + ");' title='" + editTooltip + "' data-toggle='tooltip'><i class='far fa-edit fa-lg fa-space'></i></a>" +
+                            "<a href='JavaScript:DeleteContact(" + row.ID + ", \"" + row.Ime + " " + row.Prezime + "\");' title='" + deleteTooltip + "' data-toggle='tooltip'><i class='far fa-trash-alt fa-lg fa-space'></i></a>";
                     }
                     return dataRender;
                 },

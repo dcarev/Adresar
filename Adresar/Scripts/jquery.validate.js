@@ -369,6 +369,24 @@ $.extend( $.validator, {
 	},
 
 	messages: {
+		required: "Ovo polje je obavezno.",
+		remote: "Ovo polje treba popraviti.",
+		email: "Unesite ispravnu e-mail adresu.",
+		url: "Unesite ispravan URL.",
+		date: "Unesite ispravan datum.",
+		dateISO: "Unesite ispravan datum (ISO).",
+		number: "Unesite ispravan broj.",
+		digits: "Unesite samo brojeve.",
+		creditcard: "Unesite ispravan broj kreditne kartice.",
+		equalTo: "Unesite ponovo istu vrijednost.",
+		extension: "Unesite vrijednost sa ispravnom ekstenzijom.",
+		maxlength: $.validator.format("Maksimalni broj znakova je {0} ."),
+		minlength: $.validator.format("Minimalni broj znakova je {0} ."),
+		rangelength: $.validator.format("Unesite vrijednost izmeÄ‘u {0} i {1} znakova."),
+		range: $.validator.format("Unesite vrijednost izmeÄ‘u {0} i {1}."),
+		max: $.validator.format("Unesite vrijednost manju ili jednaku {0}."),
+		min: $.validator.format("Unesite vrijednost veÄ‡u ili jednaku {0}.")
+		/*
 		required: "This field is required.",
 		remote: "Please fix this field.",
 		email: "Please enter a valid email address.",
@@ -385,6 +403,7 @@ $.extend( $.validator, {
 		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
 		min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
 		step: $.validator.format( "Please enter a multiple of {0}." )
+		*/
 	},
 
 	autoCreateRanges: false,

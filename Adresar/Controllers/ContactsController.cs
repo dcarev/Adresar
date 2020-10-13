@@ -79,7 +79,7 @@ namespace Adresar.Controllers
                                     Ime = (String)rdr["Ime"],
                                     Prezime = (String)rdr["Prezime"],
                                     Telefon = (String)rdr["Telefon"],
-                                    Email = (String)rdr["Email"],
+                                    Email = (rdr["Email"] != DBNull.Value) ? (String)rdr["Email"] : null,
                                     VrijemeKreiranja = ((DateTimeOffset)rdr["VrijemeKreiranja"]).ToString("G"),
                                     ZadnjaIzmjena = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G")
                                 };
@@ -123,17 +123,6 @@ namespace Adresar.Controllers
         {
             try
             {
-                if ((contact.Ime == null) || (contact.Ime.Length < 2))
-                    ModelState.AddModelError("Ime", String.Format(Resources.ValidationFieldRequiredMinLength, "Ime", 2));
-                if ((contact.Ime != null) && (contact.Ime.Length > 50))
-                    ModelState.AddModelError("Ime", String.Format(Resources.ValidationFieldLength, "Ime", 50));
-                if ((contact.Prezime == null) || (contact.Prezime.Length < 2))
-                    ModelState.AddModelError("Prezime", String.Format(Resources.ValidationFieldRequiredMinLength, "Prezime", 2));
-                if ((contact.Prezime != null) && (contact.Prezime.Length > 50))
-                    ModelState.AddModelError("Prezime", String.Format(Resources.ValidationFieldLength, "Prezime", 50));
-                if ((contact.Telefon == null) || (contact.Telefon.Length < 1))
-                    ModelState.AddModelError("Telefon", String.Format(Resources.ValidationFieldRequired, "Telefon"));
-
                 if (ModelState.IsValid)
                 {
                     using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AdresarConnectionString"].ToString()))
@@ -151,19 +140,15 @@ namespace Adresar.Controllers
 
                             using (SqlDataReader rdr = cmd.ExecuteReader())
                             {
-                                Int64 id = 0;
-
                                 while (rdr.Read())
                                 {
-                                    id = (Int64)rdr["ID"];
-
                                     contact = new Models.ContactViewModel()
                                     {
-                                        ID = id,
+                                        ID = (Int64)rdr["ID"],
                                         Ime = (String)rdr["Ime"],
                                         Prezime = (String)rdr["Prezime"],
                                         Telefon = (String)rdr["Telefon"],
-                                        Email = (String)rdr["Email"],
+                                        Email = (rdr["Email"] != DBNull.Value) ? (String)rdr["Email"] : null,
                                         VrijemeKreiranja = ((DateTimeOffset)rdr["VrijemeKreiranja"]).ToString("G"),
                                         ZadnjaIzmjena = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G")
                                     };
@@ -171,6 +156,7 @@ namespace Adresar.Controllers
                             }
                         }
                     }
+                    TempData["Success"] = Resources.SuccessCreate;
 
                     return View("Edit", contact);
                 }
@@ -186,44 +172,131 @@ namespace Adresar.Controllers
         // GET: Contacts/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Models.ContactViewModel contact = new Models.ContactViewModel();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AdresarConnectionString"].ToString()))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("[dbo].[SP_Kontakt]", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@ID", id));
+
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                contact = new Models.ContactViewModel()
+                                {
+                                    ID = (Int64)rdr["ID"],
+                                    Ime = (String)rdr["Ime"],
+                                    Prezime = (String)rdr["Prezime"],
+                                    Telefon = (String)rdr["Telefon"],
+                                    Email = (rdr["Email"] != DBNull.Value) ? (String)rdr["Email"] : null,
+                                    VrijemeKreiranja = ((DateTimeOffset)rdr["VrijemeKreiranja"]).ToString("G"),
+                                    ZadnjaIzmjena = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G")
+                                };
+                            }
+                        }
+                    }
+                }
+
+                return View(contact);
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+
+            return View(contact);
         }
 
         // POST: Contacts/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "ID, Ime, Prezime, Telefon, Email")] Models.ContactViewModel contact)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AdresarConnectionString"].ToString()))
+                    {
+                        conn.Open();
 
-                return RedirectToAction("Index");
+                        using (SqlCommand cmd = new SqlCommand("[dbo].[SP_IzmijeniKontakt]", conn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add(new SqlParameter("@ID", contact.ID));
+                            cmd.Parameters.Add(new SqlParameter("@Ime", contact.Ime));
+                            cmd.Parameters.Add(new SqlParameter("@Prezime", contact.Prezime));
+                            cmd.Parameters.Add(new SqlParameter("@Telefon", contact.Telefon));
+                            cmd.Parameters.Add(new SqlParameter("@Email", contact.Email));
+                            cmd.CommandTimeout = 140;
+
+                            using (SqlDataReader rdr = cmd.ExecuteReader())
+                            {
+                                while (rdr.Read())
+                                {
+                                    contact = new Models.ContactViewModel()
+                                    {
+                                        ID = (Int64)rdr["ID"],
+                                        Ime = (String)rdr["Ime"],
+                                        Prezime = (String)rdr["Prezime"],
+                                        Telefon = (String)rdr["Telefon"],
+                                        Email = (rdr["Email"] != DBNull.Value) ? (String)rdr["Email"] : null,
+                                        VrijemeKreiranja = ((DateTimeOffset)rdr["VrijemeKreiranja"]).ToString("G"),
+                                        ZadnjaIzmjena = ((DateTimeOffset)rdr["ZadnjaIzmjena"]).ToString("G")
+                                    };
+                                }
+                            }
+                        }
+                    }
+                    TempData["Success"] = Resources.SuccessEdit;
+
+                    return View("Edit", contact);
+                }
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-        }
 
-        // GET: Contacts/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
+            return View(contact);
         }
 
         // POST: Contacts/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AdresarConnectionString"].ToString()))
+                {
+                    conn.Open();
 
-                return RedirectToAction("Index");
+                    using (SqlCommand cmd = new SqlCommand("[dbo].[SP_ObrisiKontakt]", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@ID", id));
+                        cmd.ExecuteScalar();
+                    }
+                }
+
+                return Json(new {
+                    success = true,
+                    error = ""
+                });
             }
             catch
             {
-                return View();
+                return Json(new
+                {
+                    success = false,
+                    error = Resources.DeleteError
+                });
             }
         }
     }

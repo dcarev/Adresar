@@ -142,11 +142,74 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Briši.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jeste li sigurni da želite obrisati kontakt {0}?.
+        /// </summary>
+        public static string DeleteConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Došlo je do pogreške prilikom brisanja kontakta..
+        /// </summary>
+        public static string DeleteError {
+            get {
+                return ResourceManager.GetString("DeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontakt {0} je uspješno obrisan..
+        /// </summary>
+        public static string DeleteSuccess {
+            get {
+                return ResourceManager.GetString("DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brisanje kontakta.
+        /// </summary>
+        public static string DeleteTitle {
+            get {
+                return ResourceManager.GetString("DeleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uredi.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greška.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
@@ -174,6 +237,15 @@ namespace Adresar.Properties {
         public static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ne.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -223,11 +295,38 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Izradi.
+        ///   Looks up a localized string similar to Spremi.
         /// </summary>
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Potvrda.
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novi kontakt je uspješno dodan..
+        /// </summary>
+        public static string SuccessCreate {
+            get {
+                return ResourceManager.GetString("SuccessCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontakt je uspješno izmijenjen..
+        /// </summary>
+        public static string SuccessEdit {
+            get {
+                return ResourceManager.GetString("SuccessEdit", resourceCulture);
             }
         }
         
@@ -250,7 +349,7 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} na može biti duže od {1} znakova..
+        ///   Looks up a localized string similar to {0} ne može biti duže od {1} znakova..
         /// </summary>
         public static string ValidationFieldLength {
             get {
@@ -277,11 +376,20 @@ namespace Adresar.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Telefonski broj nije u ispravnom formatu..
+        ///   Looks up a localized string similar to {0} nije u ispravnom formatu ili sadrži nedozvoljene znakove..
         /// </summary>
-        public static string ValidationTelephoneFormat {
+        public static string ValidationFormat {
             get {
-                return ResourceManager.GetString("ValidationTelephoneFormat", resourceCulture);
+                return ResourceManager.GetString("ValidationFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Da.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

@@ -37,7 +37,6 @@
         <table id="tblContacts" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th></th>
                     <th>@Resources.FirstName</th>
                     <th>@Resources.LastName</th>
                     <th>@Resources.Phone</th>
@@ -51,41 +50,38 @@
     </div>
 </div>
 <!-- List panel end -->
-<!-- Lost  Modal Popup start here-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<!-- Confirmation modal popup start here-->
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Header</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalTitle">@Resources.DeleteTitle</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="kpi-label">Name : </label>
-                                <span class="kpi-span" id="txtlostSalesQuotationName"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button id="btnDeleteContact" type="button" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
+                <span class="kpi-span" id="modalMsg">@Resources.DeleteConfirmation</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">@Resources.No</button>
+                <button type="button" class="btn btn-primary" id="btnYes">@Resources.Yes</button>
             </div>
         </div>
     </div>
 </div>
-<!-- Lost Modal Popup end here-->
+<!-- Confirmation modal popup end here-->
 @section scripts {
     <script>
+        var confirmationMsg = '@Resources.DeleteConfirmation';
+        var successMsg = '@Resources.DeleteSuccess';
+        var errorMsg = '@Resources.DeleteError';
         var url = '@Url.Action("Index", "Contacts")';
-        var langUrl = '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json';
+        var editUrl = '@Url.Action("Edit", "Contacts")';
+        var createUrl = '@Url.Action("Create", "Contacts")';
+        var deleteUrl = '@Url.Action("Delete", "Contacts")';
+        var langUrl = '/Scripts/Adresar/Croatian.json';
+        var editTooltip = '@Resources.Edit';
+        var deleteTooltip = '@Resources.Delete';
     </script>
 
-    @Scripts.Render("~/bundles/ContactsListJs")
+    @Scripts.Render("~/bundles/ContactListJs")
 }

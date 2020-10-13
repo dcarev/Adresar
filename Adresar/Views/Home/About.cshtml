@@ -1,7 +1,17 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿@using Adresar.Properties
+@{
+    ViewBag.Title = Resources.About;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
+<!-- Page header start -->
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+</div>
+<!-- Page header end -->
 <h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>Ovo je testna aplikacija napisana za potrebe demonstriranja rada s bazom, ASP.Net MVC i web front-endom.</p>
+
+<p>Aplikacija nije za komercijalnu upotrebu.</p>
